@@ -27,12 +27,24 @@ function SalesProvider(props) {
         })
     }
 
-    const [salesData, setSalesData] = useState([])
+    const [salesData, setSalesData] = useState({
+        sales: [],
+        description: "",
+        tags: [],
+
+    })
     const [salesDataDirty, setSalesDataDirty] = useState(false)
 
     const [retailSalesGraphData, setRetailGraphData] = useState([])
     const [wholesaleSalesGraphData, setWholesaleSalesGraphData] = useState([])
     const [retailerMarginGraphData, setRetailerMarginGraphData] = useState([])
+    
+    const [maxAmount, setMaxAmount] = useState(1)
+    const [minAmount, setMinAmount] = useState(1000000)
+
+    const [retailChecked, setRetailChecked] = useState(true)
+    const [wholesaleChecked, setWholesaleChecked] = useState(false)
+    const [retailerMarginChecked, setRetailerMarginChecked] = useState(false)
 
     function getSalesData() {
         fetch(`${process.env.PUBLIC_URL}/data/Webdev_data2.json`, {
@@ -44,23 +56,30 @@ function SalesProvider(props) {
         }).then(r => {
             return r.json()
         }).then(r => {
-            console.log(r[0])
+            
 
             //parsing date string to push to list of sales data
+            setSalesData(r[0])
+            console.log(r[0])
             for (let i = 0; i < r[0].sales.length; i++) {
-                // let month = r[0].sales[i].weekEnding.substring(5, 7)
-                // month = parseInt(month, 10) - 1
-                // console.log(month)
-                // retailSalesGraphData[month].y = retailSalesGraphData[month].y + r[0].sales[i].retailSales
-                // salesData[month].retailSales = salesData[month].retailSales + r[0].sales[i].retailSales
-                // salesData[month].wholesaleSales = salesData[month].wholesaleSales + r[0].sales[i].wholesaleSales
-                salesData.push(r[0].sales[i])
+                
+                if (r[0].sales[i].retailSales > maxAmount) setMaxAmount(r[0].sales[i].retailSales)
+                if (r[0].sales[i].retailSales < minAmount) setMinAmount(r[0].sales[i].retailSales)
                 retailSalesGraphData.push(generateNewGraphPoint(i, r[0].sales[i].retailSales))
 
+                if (r[0].sales[i].wholesaleSales > maxAmount) setMaxAmount(r[0].sales[i].wholesaleSales)
+                if (r[0].sales[i].wholesaleSales < minAmount) setMinAmount(r[0].sales[i].wholesaleSales)
+                wholesaleSalesGraphData.push(generateNewGraphPoint(i, r[0].sales[i].wholesaleSales))
+
+                if (r[0].sales[i].retailerMargin > maxAmount) setMaxAmount(r[0].sales[i].retailerMargin)
+                if (r[0].sales[i].retailerMargin < minAmount) setMinAmount(r[0].sales[i].retailerMargin)
+                retailerMarginGraphData.push(generateNewGraphPoint(i, r[0].sales[i].retailerMargin))
+
             }
-            setSalesDataDirty(!salesDataDirty)
+            console.log("sales")
             console.log(salesData)
-            console.log(retailSalesGraphData)
+            setSalesDataDirty(!salesDataDirty)
+            
         })
     }
 
@@ -70,6 +89,14 @@ function SalesProvider(props) {
             salesData,
             salesDataDirty,
             retailSalesGraphData,
+            wholesaleSalesGraphData,
+            retailerMarginGraphData,
+            maxAmount,
+            minAmount,
+
+            retailChecked, setRetailChecked,
+            wholesaleChecked, setWholesaleChecked,
+            retailerMarginChecked, setRetailerMarginChecked,
         }}>
         {props.children}
         </SalesContext.Provider>

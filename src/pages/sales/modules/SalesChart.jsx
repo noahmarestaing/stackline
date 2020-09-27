@@ -9,14 +9,14 @@ export default function SalesChart (props) {
 
     useEffect(() => {
         let newChartRows = []
-        for (let i = 0; i < salesContext.salesData.length; i++) {
+        for (let i = 0; i < salesContext.salesData.sales.length; i++) {
             newChartRows.push(
                 <div id="DataRow">
-                    <div id="DataField">{salesContext.salesData[i].weekEnding}</div>
-                    <div id="DataField">${salesContext.salesData[i].retailSales.toLocaleString(undefined, {maximumFractionDigits:0})}</div>
-                    <div id="DataField">${salesContext.salesData[i].wholesaleSales.toLocaleString(undefined, {maximumFractionDigits:0})}</div>
-                    <div id="DataField">${salesContext.salesData[i].unitsSold.toLocaleString(undefined, {maximumFractionDigits:0})}</div>
-                    <div id="DataField">${salesContext.salesData[i].retailerMargin.toLocaleString(undefined, {maximumFractionDigits:0})}</div>
+                    <div id="DataField">{salesContext.salesData.sales[i].weekEnding}</div>
+                    <div id="DataField">${salesContext.salesData.sales[i].retailSales.toLocaleString(undefined, {maximumFractionDigits:0})}</div>
+                    <div id="DataField">${salesContext.salesData.sales[i].wholesaleSales.toLocaleString(undefined, {maximumFractionDigits:0})}</div>
+                    <div id="DataField">${salesContext.salesData.sales[i].unitsSold.toLocaleString(undefined, {maximumFractionDigits:0})}</div>
+                    <div id="DataField">${salesContext.salesData.sales[i].retailerMargin.toLocaleString(undefined, {maximumFractionDigits:0})}</div>
                 </div>
             )
         }
@@ -25,7 +25,7 @@ export default function SalesChart (props) {
     }, [salesContext.salesDataDirty])
 
     return (
-        <div>
+        <div id="SalesChartBox">
             <div id="DataRow">
                 <div id="TitleField">Week Ending</div>
                 <div id="TitleField">Retail Sales</div>

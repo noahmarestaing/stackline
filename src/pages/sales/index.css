@@ -1,3 +1,8 @@
+.App {
+    background: rgb(241, 241, 241);
+}
+
+
 #DataRow {
     width: 60vw;
     height: 50px;
@@ -16,4 +21,136 @@
 }
 #TitleField {
     font-weight: bold;
+}
+
+#SalesChartBox {
+    width: 875px;
+    padding-left: 25px;
+    background: white;
+    box-shadow: 2px 2px 2px 2px rgb(236, 236, 236)
+}
+
+#SalesGraphBox {
+    padding-left: 25px;
+    background: white;
+    box-shadow: 2px 2px 2px 2px rgb(236, 236, 236)
+}
+
+#ItemDescriptionBox {
+    background: white;
+    height: 100vh;
+    width: 300px;
+    box-shadow: 2px 2px 2px 2px rgb(236, 236, 236)
+}
+
+#ItemImage {
+    width: 200px;
+    height: 200px;
+}
+
+#ItemTitle {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#ItemSubtitle {
+    color: gray;
+    font-size: 12px;
+}
+
+#ItemDescriptionPlacement {
+    position: sticky;
+    top: 85px;
+    margin-left: 20px;
+}
+
+#SalesGraphPlacement {
+    position: absolute;
+    left: 345px;
+    top: 85px;
+}
+
+#SalesChartPlacement {
+    position: relative;
+    margin-left: 345px;
+    bottom: 135px;
+}
+
+#SalesGraphLegendPlacement {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#SalesGraphLegendBox {
+    border: solid 1px gray;
+    text-align: left;
+    padding-left: 5px;
+    padding: 5px;
+}
+
+#RetailLegendRow, #WholesaleLegendRow, #RetailerLegendRow {
+    cursor: pointer;
+    height: 20px;
+}
+#RetailLegendRow {
+    color: blue;
+}
+#WholesaleLegendRow {
+    color: gray;
+}
+#RetailerLegendRow {
+    color: black;
+}
+
+#GraphLegendText {
+    position: relative;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    bottom: 9px;
+    width: 90px;
+    margin-left: 3px;
+
+}
+
+
+
+
+
+
+#TopBarBox {
+    position: sticky;
+    background: white;
+    text-align: left;
+    height: 55px;
+    top: 0px;
+    width: 100%;
+    box-shadow: 2px 2px 2px 2px rgb(236, 236, 236);
+    z-index: 2;
+}
+
+#TopBarTitle {
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 12px;
+    padding-left: 12px;
+}
+
+#ItemDescriptionTag {
+    position: relative;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: gray;
+    margin-left: 2px;
+    margin-right: 2px;
+    border: 1px solid gray;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#ItemDescriptionTags {
+    padding-left: 30px;
+    padding-right: 30px;
 }
