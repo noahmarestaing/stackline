@@ -107,7 +107,7 @@ export const SalesGraph = (props) => {
                 height = {h}
                 ref = {d3Container}
             />
-            <div>Week</div>
+            <div id="SalesGraphXTitle">Week</div>
         </div>
     )
 }

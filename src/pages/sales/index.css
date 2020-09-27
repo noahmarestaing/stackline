@@ -36,6 +36,12 @@
     box-shadow: 2px 2px 2px 2px rgb(236, 236, 236)
 }
 
+#SalesGraphXTitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: gray;
+}
+
 #ItemDescriptionBox {
     background: white;
     height: 100vh;
@@ -46,6 +52,7 @@
 #ItemImage {
     width: 200px;
     height: 200px;
+    margin-top: 20px;
 }
 
 #ItemTitle {
