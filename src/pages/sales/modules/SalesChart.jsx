@@ -5,8 +5,10 @@ import '../index.css'
 export default function SalesChart (props) {
 
     const salesContext = useSalesContext()
+    
     const [chartRows, setChartRows] = useState([])
 
+    //generate chart rows when sales data has been updated
     useEffect(() => {
         let newChartRows = []
         for (let i = 0; i < salesContext.salesData.sales.length; i++) {

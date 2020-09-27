@@ -9,15 +9,19 @@ export const SalesGraph = (props) => {
     const salesContext = useSalesContext()
     const d3Container = useRef(null)
 
+    //dimensions of d3 graph svg
     let w = 875
     let h = 400
 
+    //useEffect updates graph when data changes
     useEffect(() => {
+
+        //initialize graph svg
         const svg = d3.select(d3Container.current), 
             width = w,
             height = h;
 
-
+        //bounds for the graph
         let maxAmount = salesContext.maxAmount + 2500000
         let minAmount = salesContext.minAmount - 1000000
         let minDate = 0
@@ -36,14 +40,13 @@ export const SalesGraph = (props) => {
         let x_axis = d3.axisBottom(xscale)
             .ticks(10);
 
-        let y_axis = d3.axisLeft(yscale)
-            .ticks()
-
+        //generate x axis
         let gX = graph.append('g')
             .call(x_axis)
             .attr("transform", "translate(0, 380)")
             .attr("color", "gray");
 
+        //function to generate line paths
         var line = d3.line()
             .x(function(d, i) {
                 return xscale(d.x);
@@ -53,7 +56,7 @@ export const SalesGraph = (props) => {
             })
             .curve(d3.curveCatmullRom.alpha(.5));
 
-
+        //if retail sales is checked generate the blue retail sales path
         if (salesContext.retailChecked) {
             graph.append("path")
                 .datum(salesContext.retailSalesGraphData)
@@ -64,6 +67,7 @@ export const SalesGraph = (props) => {
                 .style("stroke-width", "2");
         }
 
+        //if wholesale sales is checked generate the wholesale gray sales path
         if (salesContext.wholesaleChecked) {
             graph.append("path")
                 .datum(salesContext.wholesaleSalesGraphData)
@@ -74,6 +78,7 @@ export const SalesGraph = (props) => {
                 .style("stroke-width", "2");
         }
 
+        //if retailer margin is checked generate the black retailer margin path
         if (salesContext.retailerMarginChecked) {
             graph.append("path")
                 .datum(salesContext.retailerMarginGraphData)
@@ -83,10 +88,12 @@ export const SalesGraph = (props) => {
                 .style("stroke", "black")
                 .style("stroke-width", "2");
         }
-            
+        
+        //remove old svg items when new items are generated
         return () => {
             svg.selectAll('*').remove();
         }
+
     }, [salesContext.salesDataDirty, salesContext.retailChecked, salesContext.wholesaleChecked, salesContext.retailerMarginChecked])
 
     

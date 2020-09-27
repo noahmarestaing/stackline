@@ -8,18 +8,7 @@ export function useSalesContext() {
 
 function SalesProvider(props) {
 
-    // function generateNewSalesPoint(newRetailSales, newRetailMargin, newUnitsSold, newWeekEnding, newWholesaleSales) {
-    //     return (
-    //         {
-    //             retailSales: newRetailSales,
-    //             retailMargin: newRetailMargin,
-    //             unitsSold: newUnitsSold,
-    //             weekEnding: newWeekEnding,
-    //             wholesaleSales: newWholesaleSales
-    //         }
-    //     )
-    // }
-
+    //generates a graph point which can be plotted
     function generateNewGraphPoint(newX, newY) {
         return ({
             x: newX,
@@ -27,25 +16,37 @@ function SalesProvider(props) {
         })
     }
 
+    //data from json fetch
     const [salesData, setSalesData] = useState({
+        brand: "",
+        details: [],
+        id: "",
+        image: "",
+        retailer: "",
+        reviews: [],
         sales: [],
-        description: "",
+        subtitle: "",
         tags: [],
-
+        title: "",
     })
+    //tells if salesData has been updated
     const [salesDataDirty, setSalesDataDirty] = useState(false)
 
+    //graph data for the d3 sales graph
     const [retailSalesGraphData, setRetailGraphData] = useState([])
     const [wholesaleSalesGraphData, setWholesaleSalesGraphData] = useState([])
     const [retailerMarginGraphData, setRetailerMarginGraphData] = useState([])
     
+    //bounds for the d3 sales graphs
     const [maxAmount, setMaxAmount] = useState(1)
     const [minAmount, setMinAmount] = useState(1000000)
 
+    //checkbox booleans to choose what data to display on the graph
     const [retailChecked, setRetailChecked] = useState(true)
     const [wholesaleChecked, setWholesaleChecked] = useState(false)
     const [retailerMarginChecked, setRetailerMarginChecked] = useState(false)
 
+    //fetch request for json data
     function getSalesData() {
         fetch(`${process.env.PUBLIC_URL}/data/Webdev_data2.json`, {
             method: "GET",
@@ -57,10 +58,9 @@ function SalesProvider(props) {
             return r.json()
         }).then(r => {
             
-
-            //parsing date string to push to list of sales data
             setSalesData(r[0])
-            console.log(r[0])
+
+            //go through sales data to get data for the graph
             for (let i = 0; i < r[0].sales.length; i++) {
                 
                 if (r[0].sales[i].retailSales > maxAmount) setMaxAmount(r[0].sales[i].retailSales)
@@ -76,8 +76,8 @@ function SalesProvider(props) {
                 retailerMarginGraphData.push(generateNewGraphPoint(i, r[0].sales[i].retailerMargin))
 
             }
-            console.log("sales")
-            console.log(salesData)
+            
+            //indicates that data has been updated
             setSalesDataDirty(!salesDataDirty)
             
         })
@@ -93,7 +93,6 @@ function SalesProvider(props) {
             retailerMarginGraphData,
             maxAmount,
             minAmount,
-
             retailChecked, setRetailChecked,
             wholesaleChecked, setWholesaleChecked,
             retailerMarginChecked, setRetailerMarginChecked,

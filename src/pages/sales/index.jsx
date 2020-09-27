@@ -10,6 +10,7 @@ export default function Sales (props) {
 
     const salesContext = useSalesContext()
 
+    //gets json data once on page load
     useEffect(() => {
         salesContext.getSalesData()
     }, [])
